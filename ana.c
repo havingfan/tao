@@ -39,6 +39,7 @@ int ana(){
   double E2 = 0;
   double E11 = 0;
   double E22 = 0;
+  double diffmass = 0;
   
   TBranch *b_p_E;
   TBranch *b_p_id;
@@ -68,13 +69,12 @@ int ana(){
   TH1I *h32 = new TH1I( "h32", "The Phi distribution of pi", 40, -4, 4);
   TH1I *h41 = new TH1I( "h41", "The E distribution of nu tau", 35, 0, 3.5);
   TH1I *h42 = new TH1I( "h42", "The E distribution of pi", 35, 0, 3.5);
+  TH1I *h5 = new TH1I( "h5", "The difference of M distribution",30, -1, 5);
 
 //Pick out three kinds of particles and put them in three vectors.
   N = (int) my_tree->GetEntries();
   for(int i=0; i<N+1; i++){
 	my_tree->GetEntry( i );
-        //cout << p_Pt->at(0) << "\n";
-	// h1->Fill(p_E->at(0));
 	for(int j = 0; j < npar; j++){
 	switch (p_id->at(j) )
 	{ 
@@ -128,17 +128,21 @@ int ana(){
 		            if (sum1 < sum){
 				 sum = sum1;
 				 TLorentzVector PtEtaPhiEVector(Pt0,Eta0,Phi0,E0);
-				 PtEtaPhiEVector.SetPtEtaPhiE(Pt1,Eta1,Phi1,E1);
-				 Pt11 = PtEtaPhiEVector.Pt();
-                                 Eta11 = PtEtaPhiEVector.Eta();
-                                 Phi11 = PtEtaPhiEVector.Phi();
-                                 E11 = PtEtaPhiEVector.E();
-				 TLorentzVector PtEtaPhiEVector(Pt0,Eta0,Phi0,E0);
-				 PtEtaPhiEVector.SetPtEtaPhiE(Pt2,Eta2,Phi2,E2);
-                                 Pt22 = PtEtaPhiEVector.Pt();
-                                 Eta22 = PtEtaPhiEVector.Eta();
-                                 Phi22 = PtEtaPhiEVector.Phi();
-                                 E22 = PtEtaPhiEVector.E();}
+				 TLorentzVector L1(Pt0,Eta0,Phi0,E0);
+				 L1.SetPtEtaPhiE(Pt1,Eta1,Phi1,E1);
+				 Pt11 = L1.Pt();
+                                 Eta11 = L1.Eta();
+                                 Phi11 = L1.Phi();
+                                 E11 = L1.E();
+				 TLorentzVector L2(Pt0,Eta0,Phi0,E0);
+				 L2.SetPtEtaPhiE(Pt2,Eta2,Phi2,E2);
+                                 Pt22 = L2.Pt();
+                                 Eta22 = L2.Eta();
+                                 Phi22 = L2.Phi();
+                                 E22 = L2.E();
+				 TLorentzVector diff = PtEtaPhiEVector - L1 - L2;
+				 diffmass = diff.Mag();
+			         }
                         }
 	           }
 	           h11->Fill(Pt11);
@@ -149,6 +153,7 @@ int ana(){
 		   h32->Fill(Phi22);
 		   h41->Fill(E11);
 		   h42->Fill(E22);
+		   h5->Fill(diffmass);
                    int j = 0;
 		   for(int i = 0; i<PPT1.size(); i++){
 	                if(PPT1[i] != Pt11){
@@ -189,17 +194,20 @@ int ana(){
                             if (sum1 < sum){
                                  sum = sum1;
 				 TLorentzVector PtEtaPhiEVector(Pt0,Eta0,Phi0,E0);
-                                 PtEtaPhiEVector.SetPtEtaPhiE(Pt1,Eta1,Phi1,E1);
-                                 Pt11 = PtEtaPhiEVector.Pt();
-                                 Eta11 = PtEtaPhiEVector.Eta();
-                                 Phi11 = PtEtaPhiEVector.Phi();
-                                 E11 = PtEtaPhiEVector.E();
-				 TLorentzVector PtEtaPhiEVector(Pt0,Eta0,Phi0,E0);
-                                 PtEtaPhiEVector.SetPtEtaPhiE(Pt2,Eta2,Phi2,E2);
-                                 Pt22 = PtEtaPhiEVector.Pt();
-                                 Eta22 = PtEtaPhiEVector.Eta();
-                                 Phi22 = PtEtaPhiEVector.Phi();
-                                 E22 = PtEtaPhiEVector.E();}
+                                 TLorentzVector L1(Pt0,Eta0,Phi0,E0);
+				 L1.SetPtEtaPhiE(Pt1,Eta1,Phi1,E1);
+                                 Pt11 = L1.Pt();
+                                 Eta11 = L1.Eta();
+                                 Phi11 = L1.Phi();
+                                 E11 = L1.E();
+				 TLorentzVector L2(Pt0,Eta0,Phi0,E0);
+                                 L2.SetPtEtaPhiE(Pt2,Eta2,Phi2,E2);
+                                 Pt22 = L2.Pt();
+                                 Eta22 = L2.Eta();
+                                 Phi22 = L2.Phi();
+                                 E22 = L2.E();
+			         TLorentzVector diff = PtEtaPhiEVector - L1 - L2;
+				 diffmass = diff.Mag();}
                         }
                    }
                    h11->Fill(Pt11);
@@ -210,6 +218,7 @@ int ana(){
                    h32->Fill(Phi22);
                    h41->Fill(E11);
                    h42->Fill(E22);
+		   h5->Fill(diffmass);
                    int j = 0;
                    for(int i = 0; i<PPT1.size(); i++){
                         if(PPT1[i] != Pt11){
@@ -249,17 +258,20 @@ int ana(){
                             if (sum1 < sum){
                                  sum = sum1;
 				 TLorentzVector PtEtaPhiEVector(Pt0,Eta0,Phi0,E0);
-                                 PtEtaPhiEVector.SetPtEtaPhiE(Pt1,Eta1,Phi1,E1);
-                                 Pt11 = PtEtaPhiEVector.Pt();
-                                 Eta11 = PtEtaPhiEVector.Eta();
-                                 Phi11 = PtEtaPhiEVector.Phi();
-                                 E11 = PtEtaPhiEVector.E();
-				 TLorentzVector PtEtaPhiEVector(Pt0,Eta0,Phi0,E0);
-                                 PtEtaPhiEVector.SetPtEtaPhiE(Pt2,Eta2,Phi2,E2);
-                                 Pt22 = PtEtaPhiEVector.Pt();
-                                 Eta22 = PtEtaPhiEVector.Eta();
-                                 Phi22 = PtEtaPhiEVector.Phi();
-                                 E22 = PtEtaPhiEVector.E();}
+                                 TLorentzVector L1(Pt0,Eta0,Phi0,E0);
+				 L1.SetPtEtaPhiE(Pt1,Eta1,Phi1,E1);
+                                 Pt11 = L1.Pt();
+                                 Eta11 = L1.Eta();
+                                 Phi11 = L1.Phi();
+                                 E11 = L1.E();
+				 TLorentzVector L2(Pt0,Eta0,Phi0,E0);
+                                 L1.SetPtEtaPhiE(Pt2,Eta2,Phi2,E2);
+                                 Pt22 = L1.Pt();
+                                 Eta22 = L1.Eta();
+                                 Phi22 = L1.Phi();
+                                 E22 = L1.E();
+			         TLorentzVector diff = PtEtaPhiEVector - L1 - L2;
+			         diffmass = diff.Mag();}
                         }
                    }
                    h11->Fill(Pt11);
@@ -270,6 +282,7 @@ int ana(){
                    h32->Fill(Phi22);
                    h41->Fill(E11);
                    h42->Fill(E22);
+		   h5->Fill(diffmass);
                    int j = 0;
                    for(int i = 0; i<PPT1.size(); i++){
                         if(PPT1[i] != Pt11){
@@ -334,6 +347,11 @@ int ana(){
     h42->Draw();
     c11->Print("c42.png");
     cout << endl;
-   
+    h5->GetXaxis()->SetTitle("Difference of M");
+    h5->GetYaxis()->SetTitle("Events");
+    h5->Draw();
+    c11->Print("c5.png");
+    cout << endl;
+
   return 0;
 }
