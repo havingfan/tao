@@ -127,11 +127,13 @@ int ana(){
 			    sum1 = abs(Pt1 + Pt2 - Pt0) + abs(Eta1 + Eta2 - Eta0) +abs(Phi1 + Phi2 -Phi0);
 		            if (sum1 < sum){
 				 sum = sum1;
+				 TLorentzVector PtEtaPhiEVector(Pt0,Eta0,Phi0,E0);
 				 PtEtaPhiEVector.SetPtEtaPhiE(Pt1,Eta1,Phi1,E1);
 				 Pt11 = PtEtaPhiEVector.Pt();
                                  Eta11 = PtEtaPhiEVector.Eta();
                                  Phi11 = PtEtaPhiEVector.Phi();
                                  E11 = PtEtaPhiEVector.E();
+				 TLorentzVector PtEtaPhiEVector(Pt0,Eta0,Phi0,E0);
 				 PtEtaPhiEVector.SetPtEtaPhiE(Pt2,Eta2,Phi2,E2);
                                  Pt22 = PtEtaPhiEVector.Pt();
                                  Eta22 = PtEtaPhiEVector.Eta();
@@ -186,12 +188,13 @@ int ana(){
                             sum1 = abs(Pt1 + Pt2 - Pt0) + abs(Eta1 + Eta2 - Eta0) +abs(Phi1 + Phi2 -Phi0);
                             if (sum1 < sum){
                                  sum = sum1;
-				 sum = sum1;
+				 TLorentzVector PtEtaPhiEVector(Pt0,Eta0,Phi0,E0);
                                  PtEtaPhiEVector.SetPtEtaPhiE(Pt1,Eta1,Phi1,E1);
                                  Pt11 = PtEtaPhiEVector.Pt();
                                  Eta11 = PtEtaPhiEVector.Eta();
                                  Phi11 = PtEtaPhiEVector.Phi();
                                  E11 = PtEtaPhiEVector.E();
+				 TLorentzVector PtEtaPhiEVector(Pt0,Eta0,Phi0,E0);
                                  PtEtaPhiEVector.SetPtEtaPhiE(Pt2,Eta2,Phi2,E2);
                                  Pt22 = PtEtaPhiEVector.Pt();
                                  Eta22 = PtEtaPhiEVector.Eta();
@@ -245,12 +248,13 @@ int ana(){
 			    sum1 = abs(Pt1 + Pt2 - Pt0) + abs(Eta1 + Eta2 - Eta0) +abs(Phi1 + Phi2 -Phi0);
                             if (sum1 < sum){
                                  sum = sum1;
-				 sum = sum1;
+				 TLorentzVector PtEtaPhiEVector(Pt0,Eta0,Phi0,E0);
                                  PtEtaPhiEVector.SetPtEtaPhiE(Pt1,Eta1,Phi1,E1);
                                  Pt11 = PtEtaPhiEVector.Pt();
                                  Eta11 = PtEtaPhiEVector.Eta();
                                  Phi11 = PtEtaPhiEVector.Phi();
                                  E11 = PtEtaPhiEVector.E();
+				 TLorentzVector PtEtaPhiEVector(Pt0,Eta0,Phi0,E0);
                                  PtEtaPhiEVector.SetPtEtaPhiE(Pt2,Eta2,Phi2,E2);
                                  Pt22 = PtEtaPhiEVector.Pt();
                                  Eta22 = PtEtaPhiEVector.Eta();
