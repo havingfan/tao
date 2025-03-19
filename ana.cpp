@@ -38,6 +38,7 @@ int ana(){
   int n32=0;
 
   int q=0;
+  double q1=0;
   
 //Get data form ".root" file.
   string dir = "/home/yrliu/Desktop/";
@@ -75,21 +76,21 @@ int ana(){
   N = (int) my_tree->GetEntries();
   for(int i=0; i<N; i++){
         my_tree->GetEntry( i );
-        for(int j=0; j<11; j++){
-		if( p_id->at(j) == 9900016 ){
+        
+	
 
         //Determine whether or not the event is what we need.
       //  if(npar == 8){       
-  //	unordered_set<int> set1 = {p_id->at(0), p_id->at(1), p_id->at(2), p_id->at(3), p_id->at(4), p_id->at(5), p_id->at(6), p_id->at(7)};
-    //    unordered_set<int> set2 = {11, -11, -15, -16, 211, 15, 16, -211};
+  //	unordered_set<int> set1 = {p_id->at(0), p_id->at(1), p_id->at(2), p_id->at(3), p_id->at(4), p_id->at(5), p_id->at(6), p_id->at(7), p_id->at(8), p_id->at(9), p_id->at(10), p_id->at(11)};
+      //  unordered_set<int> set2 = {11, -11, -15, -16, 211, 15, 16, -211};
 //	   if(set1 ==set2){
 
 	      //Match data and particles one by one.
-//              map< int, int > Particles{{p_id->at(0), 0}, {p_id->at(1), 1}, {p_id->at(2), 2}, {p_id->at(3), 3}, {p_id->at(4), 4}, {p_id->at(5), 5}, {p_id->at(6), 6}, {p_id->at(7), 7}};
+              map< int, int > Particles{{p_id->at(0), 0}, {p_id->at(1), 1}, {p_id->at(2), 2}, {p_id->at(3), 3}, {p_id->at(4), 4}, {p_id->at(5), 5}, {p_id->at(6), 6}, {p_id->at(7), 7}, {p_id->at(8), 8}, {p_id->at(9), 9}, {p_id->at(10), 10}, {p_id->at(11), 11}};
   //            n0 = Particles.find(-15)->second;
-//	      n1 = Particles.find(-16)->second;
-//	      n2 = Particles.find(211)->second;
-//	      n01 = Particles.find(15)->second;
+//	      n1 = Particles.find(-1)->second;
+//	      n2 = Particles.find(2)->second;
+	      n01 = Particles.find(9900016)->second;
 //	      n11 = Particles.find(16)->second;
 //	      n21 = Particles.find(-211)->second;
 //              n31 = Particles.find(-11)->second;
@@ -121,11 +122,13 @@ int ana(){
 			    L21.Boost(-L01.BoostVector());
 		*/	   
 			    //Fill in data.
-			    //cout << mass->at(j) << endl;
-			    cout << sqrt(pow(p_E->at(j),2) / pow(mass->at(j),2) -1) * 3*0.01*6.582/4.78676 << endl;
+			    //cout << sqrt(pow(p_E->at(n1)+p_E->at(n2), 2) - pow(p_Eta->at(n1) + p_Eta->at(n2), 2) - pow(p_Pt->at(n1) + p_Pt->at(n2), 2) -pow(p_Phi->at(n1) + p_Phi->at(n2), 2))/mass->at(n0) << endl;
+			    //cout << sqrt(pow(p_E->at(n01),2) / pow(mass->at(n01),2) -1) * 1e7 * 1.97327/1.473993 << endl;
+                            q1 = q1 + sqrt(pow(p_E->at(n01),2) / pow(mass->at(n01),2) -1) * 1e0 * 1.97327/3.668499/10000;
 			    q += 1;
 		          
-		} }  }//}}}
+		} //}  }
+  cout << q1 << endl;
   cout << q << endl;
   cout << endl;
   return 0;
